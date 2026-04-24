@@ -1,16 +1,16 @@
 import React from 'react';
 import type { CharacterCounterProps, TextStats } from '../../types';
+import { StatsDisplay } from '../StatsDisplay/StatsDisplay';
 
 
 type Props = CharacterCounterProps & TextStats;
 
-export const CharCounter: React.FC<Props> = ({ characterCount, wordCount, readingTime, minWords=200, maxWords=1000, targetReadingTime = 5 }) => {
-  return (
-    <div>
-    <p>Character Count: {characterCount}</p>
-    <p>Word Count: {wordCount}</p>
-    <p>Reading Time: {readingTime}</p>
-    <p>Min: {minWords} words | Max: {maxWords} words | Target Reading Time: {targetReadingTime} minutes</p>
-    </div>
-  );
+export const CharCounter: React.FC<Props> = ({ characterCount, wordCount, readingTime, minWords = 200, maxWords = 400, targetReadingTime = 2 }) => {
+    const newObj = { characterCount, wordCount, readingTime }
+    return (
+        <>
+            <StatsDisplay stats={newObj} />
+            <p>Min: {minWords} words | Max: {maxWords} words | Target Reading Time: {targetReadingTime} minutes</p>
+        </>
+    );
 };

@@ -1,73 +1,70 @@
 # React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Character Counter
+A React + TypeScript character counter app built with Vite. This project demonstrates state management, event handling, component communication, and real-time UI updates using React hooks.
 
-Currently, two official plugins are available:
+Overview
+This app allows users to type into a text field and immediately see statistics about their input, including:
+Character count
+Word count
+Estimated reading time
+Optional word count goals
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+The project is designed to practice React state, props, callbacks, and component-based architecture.
 
-## React Compiler
+Tech Stack
+React
+TypeScript
+Vite
+Tailwind CSS
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Project Structure
+src/
+  components/
+    TextInput/
+      TextInput.tsx
+    StatsDisplay/
+      StatsDisplay.tsx
+    CharacterCounter/
+      CharacterCounter.tsx
+  types/
+    index.ts
 
-## Expanding the ESLint configuration
+Features
+Real-time character counting
+Real-time word counting
+Estimated reading time calculation
+Reusable components
+Typed props with TypeScript interfaces
+Parent-to-child and child-to-parent communication using callbacks
+Responsive Tailwind CSS styling
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Component Summary
+TextInput
+The TextInput component displays a textarea and sends the current text value back to the parent component whenever the user types.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+StatsDisplay
+The StatsDisplay component receives calculated statistics as props and displays them to the user.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+CharacterCounter
+The CharacterCounter component manages the main state, calculates the statistics, and connects the input component with the display component.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Reflection Questions
+How did you handle state updates when the text changed?
+I used the useState hook to store the current text input. The TextInput component used an onChange event handler to detect when the user typed. When the text changed, the child component called the callback function passed from the parent, allowing the parent component to update state with the new text value.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+What considerations did you make when calculating reading time?
+I calculated reading time based on an average reading speed of about 200 words per minute. I made sure the calculation used the word count instead of the character count. I also considered empty input so that the reading time would not show an incorrect or confusing value.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+How did you ensure the UI remained responsive during rapid text input?
+The app uses React state updates directly from the input event, which allows the UI to update immediately as the user types. The calculations are simple, so they do not slow down the interface. I also kept the components small and focused so updates remain efficient.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+What challenges did you face when implementing the statistics calculations?
+One challenge was handling empty input correctly. Splitting an empty string can sometimes return an array with one empty value, so I added logic to return a word count of zero when the trimmed text is empty. Another challenge was making sure reading time stayed as a number for calculations instead of converting it too early with formatting methods like .toFixed().
+
+Future Improvements
+Add progress bars for minimum and maximum word goals
+Add color warnings when word limits are exceeded
+Add a reset button
+Show reading time in minutes and seconds
+Save draft text in local storage

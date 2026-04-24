@@ -60,7 +60,12 @@ How did you ensure the UI remained responsive during rapid text input?
 The app uses React state updates directly from the input event, which allows the UI to update immediately as the user types. The calculations are simple, so they do not slow down the interface. I also kept the components small and focused so updates remain efficient.
 
 What challenges did you face when implementing the statistics calculations?
-One challenge was handling empty input correctly. Splitting an empty string can sometimes return an array with one empty value, so I added logic to return a word count of zero when the trimmed text is empty. Another challenge was making sure reading time stayed as a number for calculations instead of converting it too early with formatting methods like .toFixed().
+One challenge was handling empty input correctly. Splitting an empty string can sometimes return an array with one empty value, so I added logic to return a word count of zero when the trimmed text is empty.
+
+Another challenge was making sure reading time stayed as a number for calculations. I initially used .toFixed() to format the value, but learned that it returns a string rather than a number. This caused type errors in TypeScript, so I adjusted my approach to keep the value as a number during calculations and only format it when displaying it in the UI.
+
+Any other challenges?
+Another challenge was understanding component hierarchy and where state should live. I initially thought that only the App component should act as the parent container. Because of this, I placed state and logic there instead of within a feature-level component. I later learned that it is better practice to create a dedicated parent component (such as CharacterCounter) to manage state and coordinate child components like TextInput and StatsDisplay. Although I did not fully restructure my application to reflect this pattern, I now understand it and will apply it in future projects.
 
 Future Improvements
 Add progress bars for minimum and maximum word goals

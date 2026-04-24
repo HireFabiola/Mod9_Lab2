@@ -1,16 +1,24 @@
 import type { StatsDisplayProps } from "../../types"
 
+export const StatsDisplay: React.FC<StatsDisplayProps> = ({
+  stats,
+  showReadingTime = true
+}) => {
+  return (
+    <div className="max-w-md mx-auto mt-6 p-6 bg-white text-black rounded-lg shadow-md border border-gray-200">
+      <p className="mb-2">
+        <span className="font-semibold">Character Count:</span> {stats.characterCount}
+      </p>
 
-export const StatsDisplay: React.FC<StatsDisplayProps> = ({ stats, showReadingTime = true }) => {
-    return (
-        <div>
-            <p>Character Count:  {stats.characterCount}</p>
-            <p>Word Count: {stats.wordCount}</p>
+      <p className="mb-2">
+        <span className="font-semibold">Word Count:</span> {stats.wordCount}
+      </p>
 
-            {/* Check condition for displaying reading time */}
-            {showReadingTime ? (
-                <p>Reading Time: {stats.readingTime}</p>
-            ) : null}
-        </div>
-    )
+      {showReadingTime && (
+        <p>
+          <span className="font-semibold">Reading Time:</span> {stats.readingTime}
+        </p>
+      )}
+    </div>
+  )
 }

@@ -1,6 +1,4 @@
-import React from 'react';
 import type { TextInputProps } from '../../types';
- 
 
 export const TextInput: React.FC<TextInputProps> = ({
   onTextChange,
@@ -8,13 +6,13 @@ export const TextInput: React.FC<TextInputProps> = ({
   initialValue = ''
 }) => {
   return (
-    <div className="w-full">
+    <div className="max-w-md mx-auto mt-6">
       <textarea
-        className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+        className="w-full p-6 bg-white text-black border border-gray-200 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none"
         placeholder={placeholder}
         defaultValue={initialValue}
         onChange={(e) => onTextChange(e.target.value)}
-
+        rows={6}
       />
     </div>
   );
